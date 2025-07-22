@@ -1,12 +1,12 @@
+import os
 from pathlib import Path
 
-# المسار الأساسي للمشروع
+# المسار الجذري للمشروع
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# مفتاح الأمان (لا تنشره علنًا في الإنتاج)
-SECRET_KEY = 'django-insecure-2awo)z%1*2k2dz*dkzhfp9z@nykx-6uc7&yfr_=^_ihj!oxxk8'
+# الأمان
+SECRET_KEY = 'django-insecure-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
 
-# وضع التصحيح
 DEBUG = True
 
 ALLOWED_HOSTS = []
@@ -24,9 +24,10 @@ INSTALLED_APPS = [
     'catalog',
     'checkout',
     'storefront',
+     'accounts',
 ]
 
-# الوسيطات (middlewares)
+# Middleware
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -37,17 +38,17 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# المسارات
 ROOT_URLCONF = 'myelectstore.urls'
 
-# إعدادات القوالب
+# القوالب
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],  # تمكين مجلد القوالب الرئيسي
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+                'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
@@ -56,7 +57,6 @@ TEMPLATES = [
     },
 ]
 
-# تطبيق WSGI
 WSGI_APPLICATION = 'myelectstore.wsgi.application'
 
 # قاعدة البيانات
@@ -67,7 +67,7 @@ DATABASES = {
     }
 }
 
-# التحقق من كلمات المرور
+# كلمات المرور
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -83,20 +83,19 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# اللغة والمنطقة الزمنية
-LANGUAGE_CODE = 'ar'
+# اللغة والوقت
+LANGUAGE_CODE = 'ar-sa'
 TIME_ZONE = 'Asia/Riyadh'
 USE_I18N = True
-USE_L10N = True
 USE_TZ = True
 
-# الملفات الثابتة (CSS, JS, Images)
-STATIC_URL = 'static/'
+# الملفات الثابتة
+STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 
-# ملفات الوسائط (الصور المرفوعة)
+# ملفات الوسائط (media)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-# نوع المفتاح الأساسي الافتراضي
+# معرف المشروع
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

@@ -4,3 +4,5 @@ from .models import Product
 def product_list(request):
     products = Product.objects.filter(is_active=True).order_by('-created_at')
     return render(request, 'catalog/product_list.html', {'products': products})
+
+

@@ -5,11 +5,14 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('storefront.urls')),       # الصفحة الرئيسية
-    path('products/', include('catalog.urls')), # صفحة عرض المنتجات
-    path('checkout/', include('checkout.urls')), # صفحة الدفع أو السلة
+    path('', include('storefront.urls')),     # الصفحة الرئيسية
+    path('products/', include('catalog.urls')),
+    path('checkout/', include('checkout.urls')),
+    path('accounts/', include('accounts.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
+
 ]
 
-# لتقديم ملفات الوسائط (مثل صور المنتجات) خلال وضع التطوير
+# دعم ملفات media في وضع التطوير
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

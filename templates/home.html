@@ -6,37 +6,46 @@
   <style>
     body {
       margin: 0;
-      font-family: 'Tahoma', sans-serif;
+      font-family: 'Cairo', sans-serif;
       background: #f2f2f2;
     }
 
     .hero {
-      background: linear-gradient(to right, #3a3a3a, #1e1e1e);
+      background: linear-gradient(to left, #333, #111);
       color: white;
       text-align: center;
-      padding: 80px 20px;
+      padding: 70px 20px;
     }
 
     .hero h2 {
-      font-size: 36px;
+      font-size: 40px;
       color: gold;
+      margin-bottom: 10px;
     }
 
     .hero p {
       font-size: 18px;
-      color: #eee;
+      color: #e0e0e0;
     }
 
-    .container {
-      max-width: 1200px;
-      margin: auto;
-      padding: 40px 20px;
+    .product-section {
+      padding: 50px 20px;
+      background-color: #f9f9f9;
+    }
+
+    .product-section h3 {
+      text-align: center;
+      font-size: 28px;
+      margin-bottom: 40px;
+      color: #333;
     }
 
     .product-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
       gap: 30px;
+      max-width: 1200px;
+      margin: auto;
     }
 
     .product-card {
@@ -62,61 +71,70 @@
       padding: 15px;
     }
 
-    .product-info h2 {
-      font-size: 20px;
-      color: #333;
+    .product-info h4 {
+      font-size: 18px;
       margin: 0 0 10px;
+      color: #222;
     }
 
     .product-info p {
       margin: 4px 0;
-      color: #555;
       font-size: 14px;
+      color: #555;
     }
 
-    .price {
+    .product-info .price {
       color: goldenrod;
       font-weight: bold;
-      font-size: 18px;
-      margin-top: 10px;
+      font-size: 16px;
+    }
+
+    .product-info .quantity {
+      font-size: 13px;
+      color: #888;
     }
   </style>
 </head>
 <body>
 
-  {% load static %}
-  {% include 'header.html' %}
+{% load static %}
+{% include 'header.html' %}
 
-  <div class="hero">
-    <h2>مرحبًا بك في متجر أبها</h2>
-    <p>وجهتك الأولى لشراء الأجهزة الإلكترونية الأصلية بأسعار منافسة</p>
-  </div>
+<!-- البانر -->
+<div class="hero">
+  <h2>مرحبًا بك في متجر أبها</h2>
+  <p>وجهتك الأولى لشراء الأجهزة الإلكترونية الأصلية بأسعار منافسة</p>
+</div>
 
-  <div class="container">
-    <h2 style="text-align:center; color:#333;">أحدث المنتجات</h2>
-    <div class="product-grid">
-      {% for product in products %}
-        <div class="product-card">
-          {% if product.image %}
-            <img src="{{ product.image.url }}" alt="{{ product.name }}">
-          {% else %}
-            <img src="{% static 'no-image.png' %}" alt="لا توجد صورة">
+<!-- المنتجات -->
+<div class="product-section">
+  <h3>أحدث المنتجات</h3>
+  <div class="product-grid">
+    {% for product in products %}
+      <div class="product-card">
+        {% if product.image %}
+          <img src="{{ product.image.url }}" alt="{{ product.name }}">
+        {% else %}
+          <img src="{% static 'no-image.png' %}" alt="لا توجد صورة">
+        {% endif %}
+        <div class="product-info">
+          <h4>{{ product.name }}</h4>
+          {% if product.description %}
+            <p>{{ product.description|truncatewords:10 }}</p>
           {% endif %}
-          <div class="product-info">
-            <h2>{{ product.name }}</h2>
-            <p>{{ product.description|truncatewords:15 }}</p>
+          {% if product.category %}
             <p><strong>القسم:</strong> {{ product.category }}</p>
-            <p class="price">{{ product.price }} ﷼</p>
-            <p><small>الكمية المتوفرة: {{ product.quantity }}</small></p>
-          </div>
+          {% endif %}
+          <p class="price">{{ product.price }} ريال</p>
+          <p class="quantity">الكمية المتوفرة: {{ product.quantity }}</p>
         </div>
-      {% empty %}
-        <p style="text-align:center;">لا توجد منتجات حالياً.</p>
-      {% endfor %}
-    </div>
+      </div>
+    {% empty %}
+      <p style="text-align:center;">لا توجد منتجات حالياً.</p>
+    {% endfor %}
   </div>
+</div>
 
-  {% include 'footer.html' %}
-
+{% include 'footer.html' %}
 </body>
 </html>
